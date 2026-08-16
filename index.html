@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#09090b">
+<meta name="description" content="今暇やろ？そうなんやろ？暇つぶしたいんやろ？！">
+<title>今暇やろ？そうなんやろ？暇つぶしたいんやろ？！</title>
+<style>
+:root{--bg:#08080b;--card:#13151c;--line:#292c37;--pink:#ff2f9d;--lime:#caff00;--cyan:#00e5ff;--yellow:#ffe600;--white:#f8f8fa}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 8% 3%,#ff2f9d2a,transparent 27%),radial-gradient(circle at 92% 35%,#00e5ff1e,transparent 25%);pointer-events:none}
+.intro{position:fixed;inset:0;z-index:1000;background:#050507;display:grid;place-items:center;transition:opacity .7s}.intro.hide{opacity:0;pointer-events:none}.slot-wrap{text-align:center;width:min(92vw,700px);padding:20px}.slot-label{font-size:20px;font-weight:1000;letter-spacing:.12em;color:#aaa}.slot{display:flex;gap:8px;justify-content:center;background:#17181f;border:5px solid #fff;border-radius:20px;padding:12px;margin:18px 0;box-shadow:0 0 0 5px #111,0 0 45px #fff3}.reel{width:30%;height:125px;border-radius:10px;background:linear-gradient(#fff,#aaa 8%,#fafafa 50%,#aaa 92%,#fff);color:#111;display:grid;place-items:center;overflow:hidden;font-size:90px;font-weight:1000}.reel span{display:block}.reel:nth-child(1) span{animation:land .7s .6s both}.reel:nth-child(2) span{animation:land .7s 1.15s both}.reel:nth-child(3) span{animation:land .7s 1.7s both}.right-almost{animation:almost .9s 2.1s both}.intro-text{min-height:95px;display:grid;place-items:center;font-size:clamp(18px,4.5vw,29px);font-weight:1000;line-height:1.45}.hidden{display:none!important}
+.main-btn,.mega-btn{border:0;border-radius:12px;background:var(--lime);color:#111;font-weight:1000;cursor:pointer;box-shadow:7px 7px var(--pink)}.main-btn{padding:14px 22px;font-size:18px}.mega-btn{padding:18px 27px;font-size:clamp(19px,4vw,29px)}
+.ticker{background:var(--yellow);color:#111;border-block:3px solid #111;padding:9px;white-space:nowrap;overflow:hidden;font-weight:1000}.ticker{animation:shake .12s infinite alternate}
+.hero{min-height:78vh;display:grid;place-items:center;text-align:center;padding:50px 15px;position:relative}.hero-inner{max-width:1100px}.sticker{display:inline-block;background:var(--pink);color:#111;border:2px solid #fff;padding:7px 12px;font-weight:1000;transform:rotate(-3deg);box-shadow:6px 6px #fff;margin-bottom:20px}
+h1{font-size:clamp(42px,11vw,108px);line-height:.87;letter-spacing:-.07em;margin:0;font-weight:1000;text-shadow:5px 5px var(--pink),-3px -3px var(--cyan)}h1 span{display:block;color:var(--lime);text-shadow:5px 5px #111}.hero p{font-size:clamp(16px,3vw,23px);font-weight:800;line-height:1.5;color:#ddd}
+.floating-dice,.float{position:absolute;background:none;border:0;font-size:64px;cursor:pointer;user-select:none}.floating-dice{left:4%;top:16%;animation:float 3s ease-in-out infinite}.float{animation:float 3s ease-in-out infinite}.f2{right:4%;top:24%}.f3{left:7%;bottom:9%;animation-delay:.7s}.f4{right:8%;bottom:10%;animation-delay:1.2s}.dice-spin{animation:diceSpin .28s ease}
+main{max-width:1100px;margin:auto;padding:0 15px 70px}.section{margin-top:35px}.section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:15px}.section-title h2{font-size:clamp(28px,6vw,48px);margin:0;letter-spacing:-.05em}.section-title span{color:#888}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.game-card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:19px;min-height:175px;cursor:pointer;transition:.15s}.game-card:hover{transform:translateY(-5px) rotate(-.4deg);border-color:var(--lime);box-shadow:7px 7px #252733}.game-card .emoji{font-size:42px}.game-card h3{font-size:22px;margin:7px 0}.game-card p{margin:0;color:#aaa}
+.hima-card{margin-top:35px;background:linear-gradient(135deg,#191b22,#0c0d10);border:2px solid var(--pink);border-radius:22px;text-align:center;padding:28px}.eyebrow{color:#aaa}.hima-card h2{font-size:clamp(30px,6vw,48px);margin:4px}.level{font-size:clamp(52px,11vw,90px);font-weight:1000;color:var(--lime)}.rank{font-size:20px;font-weight:900;margin-bottom:12px}.small-btn{border:0;border-radius:10px;padding:12px 17px;margin:4px;font-weight:1000;cursor:pointer;background:#fff;color:#111}.small-btn.cyan{background:var(--cyan)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stats>div{background:var(--card);border:2px solid var(--line);border-radius:15px;padding:20px;text-align:center}.stats b{display:block;font-size:34px;color:var(--cyan)}.stats span{color:#999}
+footer{text-align:center;border-top:1px solid var(--line);padding:30px;color:#777}.footer-secret{background:none;border:0;color:#3f4148;cursor:pointer}.footer-secret:hover{color:var(--pink)}
+.modal{position:fixed;inset:0;z-index:900;background:#000b;backdrop-filter:blur(7px);display:none;place-items:center;padding:15px}.modal.show{display:grid}.modal-box{position:relative;width:min(94vw,650px);max-height:88vh;overflow:auto;background:#15161c;border:2px solid var(--cyan);border-radius:20px;padding:27px;text-align:center}.close{position:absolute;right:10px;top:4px;background:none;border:0;color:#fff;font-size:32px;cursor:pointer}.choice{display:block;width:100%;margin:8px 0;padding:12px;border:0;border-radius:10px;background:#292c36;color:#fff;font-weight:800;cursor:pointer}.big{font-size:70px;font-weight:1000;color:var(--lime);margin:15px}.modal input{padding:11px;border-radius:9px;border:1px solid #555;background:#090a0d;color:#fff}.modal button:not(.close){padding:11px 16px;border:0;border-radius:10px;font-weight:1000;cursor:pointer}.jackpot{font-size:clamp(35px,9vw,70px);font-weight:1000;animation:rainbow 1s linear infinite}.toast{position:fixed;z-index:1100;bottom:24px;left:50%;transform:translateX(-50%) translateY(25px);background:#fff;color:#111;padding:12px 18px;border-radius:999px;font-weight:1000;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateX(-50%)}
+@keyframes land{from{transform:translateY(-100px);filter:blur(5px)}to{transform:none;filter:none}}@keyframes almost{0%{opacity:0;transform:translateY(-60px)}45%,70%{opacity:1;transform:none;text-shadow:0 0 25px #ffe600}100%{opacity:0}}@keyframes float{50%{transform:translateY(-17px) rotate(8deg)}}@keyframes diceSpin{to{transform:rotate(360deg)}}@keyframes rainbow{to{filter:hue-rotate(360deg)}}@keyframes shake{from{transform:translateX(-1px)}to{transform:translateX(1px)}}
+@media(max-width:600px){.floating-dice,.float{font-size:40px}.floating-dice{left:2%;top:12%}.f2{right:2%;top:20%}.f3{left:3%;bottom:7%}.f4{right:3%;bottom:8%}.stats b{font-size:27px}}
+
+</style>
+</head>
+<body>
+<div id="intro" class="intro">
+  <div class="slot-wrap">
+    <div class="slot-label">🎰 運命の3リール 🎰</div>
+    <div class="slot">
+      <div class="reel"><span>7</span></div>
+      <div class="reel"><span>7</span></div>
+      <div class="reel"><span id="rightReel">6</span></div>
+    </div>
+    <div id="introText" class="intro-text">運命の3リール……</div>
+    <button id="startBtn" class="main-btn hidden">🔥 とりま暇つぶす</button>
+  </div>
+</div>
+
+<div class="ticker">⚠️ 暇ですか？　→　はい　→　遊ぶ　　⚠️ 暇ですか？　→　はい　→　遊ぶ　　⚠️ 暇ですか？　→　はい　→　遊ぶ</div>
+
+<header class="hero">
+  <button id="dice" class="floating-dice" aria-label="謎のサイコロ">🎲</button>
+  <div class="float f2">💀</div><div class="float f3">⚡</div><div class="float f4">😂</div>
+  <div class="hero-inner">
+    <div class="sticker">暇人専用区域</div>
+    <h1>今暇やろ？<span>そうなんやろ？</span>暇つぶしたいんやろ？！</h1>
+    <p>──なら、ここで時間を溶かしていけ。<br>「ちょっとだけ」のつもりで入ると、たぶん帰れん。</p>
+    <button id="randomBtn" class="mega-btn">🔥 とりあえず押せ！！！</button>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="section-title"><h2>🎮 暇つぶし一覧</h2><span>無料で遊べる</span></div>
+    <div id="gameList" class="cards"></div>
+  </section>
+
+  <section class="hima-card">
+    <div class="eyebrow">👁️ 今日のお前</div>
+    <h2>暇人レベル</h2>
+    <div id="level" class="level">--</div>
+    <div id="rank" class="rank">測定してみる？</div>
+    <button id="measureBtn" class="small-btn">測定する</button>
+    <button id="shareBtn" class="small-btn cyan">📤 結果を送る</button>
+  </section>
+
+  <section class="section">
+    <div class="section-title"><h2>🏆 暇人実績</h2></div>
+    <div class="stats">
+      <div><b id="plays">0</b><span>遊んだ回数</span></div>
+      <div><b id="secrets">0</b><span>隠し要素</span></div>
+      <div><b id="diceTaps">0</b><span>🎲タップ</span></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>もう帰るんけ？</p>
+  <button id="footerSecret" class="footer-secret">ここ押すと何かあるかもしれん</button>
+</footer>
+
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-box">
+    <button id="closeModal" class="close" aria-label="閉じる">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const GAMES=[
+{id:"ten",emoji:"⚡",title:"10秒チャレンジ",desc:"10.00秒を狙え。",html:()=>`<h2>⚡ 10秒チャレンジ</h2><p>10秒だと思った瞬間にもう一度押せ。</p><div id="timer" class="big">0.00</div><button id="timerBtn">スタート</button><div id="timerResult"></div>`},
+{id:"gacha",emoji:"🎲",title:"運試しガチャ",desc:"押すだけ。結果は知らん。",html:()=>`<h2>🎲 運試しガチャ</h2><div id="gachaResult" class="big">？？？</div><button id="gachaBtn">ガチャを引く</button>`},
+{id:"reaction",emoji:"👆",title:"反射神経ゲーム",desc:"変わった瞬間に押せ。",html:()=>`<h2>👆 反射神経</h2><div id="reactionBox" style="height:150px;border-radius:15px;background:#292c36;display:grid;place-items:center;font-size:28px;font-weight:1000">待機中</div><button id="reactionBtn">スタート</button><div id="reactionResult"></div>`},
+{id:"dont",emoji:"🚫",title:"絶対に押すな",desc:"押すなと言われたら押すよな？",html:()=>`<h2>🚫 絶対に押すな</h2><p id="dontText">本当に押すな。</p><button id="dontBtn">押さない</button>`},
+{id:"coin",emoji:"🪙",title:"コイントス",desc:"表か裏か。それだけ。",html:()=>`<h2>🪙 コイントス</h2><div id="coinResult" class="big">🪙</div><button id="coinBtn">投げる</button>`},
+{id:"luck",emoji:"🍀",title:"今日の運勢",desc:"今日のお前、ツイてる？",html:()=>`<h2>🍀 今日の運勢</h2><div id="luckResult" class="big">？？？</div><button id="luckBtn">占う</button>`},
+{id:"memory",emoji:"🧠",title:"一瞬記憶",desc:"数字を覚えて入力しろ。",html:()=>`<h2>🧠 一瞬記憶</h2><p id="memoryText">開始を押せ。</p><input id="memoryInput" inputmode="numeric" style="display:none"><button id="memoryBtn">開始</button>`},
+{id:"tap",emoji:"👆",title:"10秒連打",desc:"10秒で何回押せる？",html:()=>`<h2>👆 10秒連打</h2><div id="tapCount" class="big">0</div><button id="tapBtn">連打！！</button>`},
+{id:"rpg",emoji:"🧙",title:"RPGキャラメーカー",desc:"名前を入れて冒険者生成。",html:()=>`<h2>🧙 RPGキャラメーカー</h2><input id="rpgName" placeholder="名前"><button id="rpgBtn">生成</button><div id="rpgResult"></div>`},
+{id:"power",emoji:"💪",title:"戦闘力診断",desc:"お前の戦闘力を適当に測る。",html:()=>`<h2>💪 戦闘力診断</h2><p>直感で選べ。</p><div id="powerQ"><button class="choice" data-v="1">冷静に行く</button><button class="choice" data-v="3">勢いで行く</button><button class="choice" data-v="2">普通に行く</button></div><div id="powerResult"></div>`}
+];
+let diceCountLocal=0,diceLocked=false,idleTimer;
+function addSecret(){state.secrets++;syncStats();saveState()}
+function diceTap(){
+ if(diceLocked)return;
+ diceCountLocal++;state.dice=diceCountLocal;saveState();syncStats();
+ dice.classList.remove("dice-spin");void dice.offsetWidth;dice.classList.add("dice-spin");
+ if(diceCountLocal===10){addSecret();toast("🎲 10回！……ん？何か増えた？")}
+ if(diceCountLocal===50){addSecret();toast("🎲🎲 50回！もう1個増えた！！")}
+ if(diceCountLocal===77){
+   diceLocked=true;addSecret();
+   openModal(`<div class="jackpot">🎰 7 7 7 🎰</div><h2>JACKPOT！！</h2><p>暇人、ここまでやるとは。</p>`);
+   setTimeout(()=>{diceCountLocal=0;state.dice=0;diceLocked=false;saveState();syncStats()},3200);
+ }
+}
+function resetIdle(){
+ clearTimeout(idleTimer);
+ idleTimer=setTimeout(()=>{addSecret();openModal(`<h2>👀 お前……</h2><p class="result">今、別のことして暇つぶしてるか？<br>何か取りに行っていたやろ？</p><button onclick="closeModal()">……バレた？</button>`)},120000);
+}
+["pointerdown","touchstart","keydown","wheel"].forEach(e=>addEventListener(e,resetIdle,{passive:true}));
+function checkNight(){
+ const h=new Date().getHours();
+ if(h>=23||h<5) openModal(`<h2>🌙 もう夜やぞ</h2><p>暇つぶしじゃなくてはよ寝なさい。<br>お顔にニキビできちゃうますからね💢</p><button onclick="closeModal()">はい……寝ます。</button>`);
+}
+setInterval(checkNight,60000);resetIdle();
+
+const saved=localStorage.getItem("imaHimaState");let state=saved?JSON.parse(saved):{plays:0,secrets:0,dice:0};
+const $=id=>document.getElementById(id);
+function saveState(){localStorage.setItem("imaHimaState",JSON.stringify(state))}
+function syncStats(){$("plays").textContent=state.plays;$("secrets").textContent=state.secrets;$("diceTaps").textContent=state.dice}
+function toast(msg){const x=$("toast");x.textContent=msg;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2100)}
+function openModal(html){$("modalContent").innerHTML=html;$("modal").classList.add("show");$("modal").setAttribute("aria-hidden","false")}
+function closeModal(){$("modal").classList.remove("show");$("modal").setAttribute("aria-hidden","true")}
+window.closeModal=closeModal;window.toast=toast;window.openModal=openModal;
+$("closeModal").onclick=closeModal;$("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeModal()});
+function playGame(g){
+ state.plays++;saveState();syncStats();openModal(g.html());
+ const id=g.id;
+ if(id==="ten"){let running=false,start=0;const btn=$("timerBtn");btn.onclick=()=>{if(!running){running=true;start=performance.now();btn.textContent="今や！";const tick=()=>{if(running){$("timer").textContent=((performance.now()-start)/1000).toFixed(2);requestAnimationFrame(tick)}};tick()}else{running=false;const sec=(performance.now()-start)/1000,err=Math.abs(sec-10);$("timer").textContent=sec.toFixed(2);$("timerResult").innerHTML=`<p>${err<.05?"🎯 神！！":err<.2?"🔥 かなり近い！":"😂 時間感覚どこ行った？"}<br>誤差 ${err.toFixed(2)}秒</p>`;btn.textContent="もう一回"}}}
+ if(id==="gacha")$("gachaBtn").onclick=()=>{$("gachaResult").textContent=["🌈 UR","💎 SSR","🔥 SR","⭐ R","🥔 N"][Math.floor(Math.random()*5)]}
+ if(id==="reaction"){let armed=false,waiting=false,start=0;$("reactionBtn").onclick=()=>{if(armed){const ms=performance.now()-start;armed=false;$("reactionBox").textContent="止まった！";$("reactionResult").innerHTML=`<p>反応速度：<b>${Math.round(ms)}ms</b></p>`;return}if(waiting)return;waiting=true;$("reactionBox").textContent="待て……";setTimeout(()=>{waiting=false;armed=true;start=performance.now();$("reactionBox").textContent="今や！！！";$("reactionBox").style.background="#fff";$("reactionBox").style.color="#111"},700+Math.random()*2200)}}
+ if(id==="dont"){let n=0;$("dontBtn").onclick=()=>{n++;$("dontText").textContent=n>=5?"もう好きにせえ。":n>=3?"……お前、暇やな。":"押すな言うたやん。" }}
+ if(id==="coin")$("coinBtn").onclick=()=>{$("coinResult").textContent="🪙";setTimeout(()=>{$("coinResult").textContent=Math.random()<.5?"表":"裏"},400)}
+ if(id==="luck")$("luckBtn").onclick=()=>{$("luckResult").textContent=["大吉🔥","中吉✨","小吉🙂","凶💀","超大吉🌈"][Math.floor(Math.random()*5)]}
+ if(id==="memory"){$("memoryBtn").onclick=()=>{if($("memoryBtn").dataset.answer){$("memoryText").textContent=$("memoryInput").value===$("memoryBtn").dataset.answer?"🎯 正解！":"💀 不正解！";$("memoryBtn").style.display="none";$("memoryInput").style.display="none";return}const n=String(Math.floor(10000+Math.random()*90000));$("memoryText").textContent=n;$("memoryBtn").dataset.answer=n;$("memoryBtn").textContent="判定";setTimeout(()=>{$("memoryText").textContent="入力しろ！";$("memoryInput").style.display="inline-block"},1000)}}
+ if(id==="tap"){let n=0,running=false,t;$("tapBtn").onclick=()=>{if(!running){n=0;running=true;$("tapCount").textContent=n;$("tapBtn").textContent="連打！！";t=setTimeout(()=>{running=false;$("tapBtn").textContent="もう一回"},10000)}if(running){n++;$("tapCount").textContent=n}}}
+ if(id==="rpg")$("rpgBtn").onclick=()=>{const name=$("rpgName").value.trim()||"名無し",jobs=["勇者","魔法使い","盗賊","騎士","錬金術師","謎の村人"],hp=Math.floor(Math.random()*9000)+1000;$("rpgResult").innerHTML=`<p><b>${escapeHtml(name)}</b>：${jobs[Math.floor(Math.random()*jobs.length)]}<br>HP：${hp}<br>攻撃力：${Math.floor(hp*.6)}<br>防御力：${Math.floor(hp*.4)}</p>`}
+ if(id==="power")$("powerQ").onclick=e=>{if(e.target.dataset.v){$("powerQ").innerHTML="";$("powerResult").innerHTML=`<div class="big">${(Math.floor(1000+Math.random()*9000)).toLocaleString()}</div><p>かなり暇な戦士。</p>`}}
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderGames(){$("gameList").innerHTML=GAMES.map((g,i)=>`<article class="game-card" data-i="${i}"><div class="emoji">${g.emoji}</div><h3>${g.title}</h3><p>${g.desc}</p></article>`).join("");document.querySelectorAll(".game-card").forEach(c=>c.onclick=()=>playGame(GAMES[+c.dataset.i]))}
+$("dice").onclick=diceTap;
+$("randomBtn").onclick=()=>playGame(GAMES[Math.floor(Math.random()*GAMES.length)]);
+$("measureBtn").onclick=()=>{const n=Math.min(999,state.plays*13+state.secrets*31+Math.floor(Math.random()*100));$("level").textContent=n;$("rank").textContent=n>=900?"暇神：人生どうした":n>=700?"暇人四天王":n>=500?"暇人の才能":n>=300?"かなり暇":n>=100?"暇人":"一般人"};
+$("shareBtn").onclick=()=>{const text=`俺の暇人レベルは ${$("level").textContent} だった。`;if(navigator.share)navigator.share({title:"今暇やろ？",text,url:location.href});else if(navigator.clipboard)navigator.clipboard.writeText(text+" "+location.href).then(()=>toast("結果をコピーしたで！"));else toast("このブラウザでは共有できんかった！")};
+$("footerSecret").onclick=()=>{addSecret();toast("……何もないで。")};
+renderGames();syncStats();
+
+function introSequence(){
+ const t=$("introText"),r=$("rightReel"),b=$("startBtn");
+ setTimeout(()=>t.innerHTML="おおっ……！？",2200);
+ setTimeout(()=>{r.classList.add("right-almost");t.innerHTML="惜しいな。<br>7が揃ったら良かったんだが……"},2850);
+ setTimeout(()=>t.innerHTML="ん？<br><b style='color:#ff2f9d'>6を7に変えたい？</b>",3900);
+ setTimeout(()=>{t.innerHTML="<b style='color:#caff00'>じゃあとりま暇つぶぜ！！！🌈</b>";b.classList.remove("hidden")},5000);
+}
+b=$("startBtn");b.onclick=()=>{$("intro").classList.add("hide");setTimeout(()=>$("intro").remove(),700)};introSequence();
+
+</script>
+</body>
+</html>
