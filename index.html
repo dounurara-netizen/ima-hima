@@ -102,7 +102,6 @@ const GAMES=[
 {id:"tap",emoji:"👆",title:"10秒連打",desc:"10秒で何回押せる？",html:()=>`<h2>👆 10秒連打</h2><div id="tapCount" class="big">0</div><button id="tapBtn">連打！！</button>`},
 {id:"rpg",emoji:"🧙",title:"RPGキャラメーカー",desc:"名前を入れて冒険者生成。",html:()=>`<h2>🧙 RPGキャラメーカー</h2><input id="rpgName" placeholder="名前"><button id="rpgBtn">生成</button><div id="rpgResult"></div>`},
 {id:"power",emoji:"💪",title:"戦闘力診断",desc:"お前の戦闘力を適当に測る。",html:()=>`<h2>💪 戦闘力診断</h2><p>直感で選べ。</p><div id="powerQ"><button class="choice" data-v="1">冷静に行く</button><button class="choice" data-v="3">勢いで行く</button><button class="choice" data-v="2">普通に行く</button></div><div id="powerResult"></div>`}
-{id:"slot",emoji:"🎰",title:"虹色スロット",desc:"キラキラ虹色の運試し。時間を無駄にしよう！"},
 ];
 let diceCountLocal=0,diceLocked=false,idleTimer;
 function addSecret(){state.secrets++;syncStats();saveState()}
@@ -141,7 +140,6 @@ $("closeModal").onclick=closeModal;$("modal").addEventListener("click",e=>{if(e.
 function playGame(g){
  state.plays++;saveState();syncStats();openModal(g.html());
  const id=g.id;
-{id:"slot",emoji:"🎰",title:"虹色スロット",desc:"キラキラ虹色の運試し。時間を無駄にしよう！"},
  if(id==="ten"){let running=false,start=0;const btn=$("timerBtn");btn.onclick=()=>{if(!running){running=true;start=performance.now();btn.textContent="今や！";const tick=()=>{if(running){$("timer").textContent=((performance.now()-start)/1000).toFixed(2);requestAnimationFrame(tick)}};tick()}else{running=false;const sec=(performance.now()-start)/1000,err=Math.abs(sec-10);$("timer").textContent=sec.toFixed(2);$("timerResult").innerHTML=`<p>${err<.05?"🎯 神！！":err<.2?"🔥 かなり近い！":"😂 時間感覚どこ行った？"}<br>誤差 ${err.toFixed(2)}秒</p>`;btn.textContent="もう一回"}}}
  if(id==="gacha")$("gachaBtn").onclick=()=>{$("gachaResult").textContent=["🌈 UR","💎 SSR","🔥 SR","⭐ R","🥔 N"][Math.floor(Math.random()*5)]}
  if(id==="reaction"){let armed=false,waiting=false,start=0;$("reactionBtn").onclick=()=>{if(armed){const ms=performance.now()-start;armed=false;$("reactionBox").textContent="止まった！";$("reactionResult").innerHTML=`<p>反応速度：<b>${Math.round(ms)}ms</b></p>`;return}if(waiting)return;waiting=true;$("reactionBox").textContent="待て……";setTimeout(()=>{waiting=false;armed=true;start=performance.now();$("reactionBox").textContent="今や！！！";$("reactionBox").style.background="#fff";$("reactionBox").style.color="#111"},700+Math.random()*2200)}}
