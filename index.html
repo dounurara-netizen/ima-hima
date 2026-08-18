@@ -25,6 +25,33 @@ footer{text-align:center;border-top:1px solid var(--line);padding:30px;color:#77
 @media(max-width:600px){.floating-dice,.float{font-size:40px}.floating-dice{left:2%;top:12%}.f2{right:2%;top:20%}.f3{left:3%;bottom:7%}.f4{right:3%;bottom:8%}.stats b{font-size:27px}}
 
 </style>
+
+<style id="golden-seven-v2">
+.slot-reel .gold-seven{
+  display:inline-block;
+  background:linear-gradient(180deg,#fffbd0 0%,#ffe66d 18%,#d99a00 42%,#fff3a6 58%,#b87500 82%,#fff6b0 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:1px #7a5000;
+  text-shadow:0 0 4px #ffd700;
+  filter:drop-shadow(0 0 8px #ffd700);
+}
+.slot-reel .gold-seven.jackpot-gold{
+  animation:goldJackpot .3s ease-in-out infinite alternate;
+}
+@keyframes goldJackpot{
+  from{filter:drop-shadow(0 0 6px #ffd700)}
+  to{filter:drop-shadow(0 0 24px #fff6a0) drop-shadow(0 0 38px #ffd700)}
+}
+</style>
+
+<style id="safe-improvements-v2">
+.big-tap-button-v2{width:min(72vw,290px);height:min(72vw,290px);border-radius:50%;border:8px solid #fff;font-size:clamp(30px,8vw,55px);font-weight:1000;cursor:pointer;touch-action:manipulation;box-shadow:0 12px 0 #6d1760,0 0 35px #ff5cff;margin:18px auto;display:grid;place-items:center;user-select:none}
+.big-tap-button-v2:active{transform:translateY(9px) scale(.97);box-shadow:0 3px 0 #6d1760,0 0 45px #fff}
+.reaction-color-v2{width:min(78vw,320px);height:min(45vw,200px);border-radius:26px;border:8px solid #fff;margin:20px auto;display:grid;place-items:center;font-size:clamp(28px,7vw,48px);font-weight:1000;color:#fff;text-shadow:0 2px 6px #000;box-shadow:0 0 30px #fff8}
+.jumpscare-v2{position:fixed;inset:0;z-index:99999;background:#000;display:grid;place-items:center}
+.jumpscare-v2 .scare-face{width:100%;height:100%;display:grid;place-items:center;font-size:clamp(100px,35vw,360px);background:radial-gradient(circle at 50% 42%,#eee 0 2%,#150000 4% 22%,#000 40%);text-shadow:0 0 15px #f00;animation:scareShakeV2 .045s infinite}
+@keyframes scareShakeV2{0%{transform:translate(0)}25%{transform:translate(9px,-6px)}50%{transform:translate(-8px,7px)}75%{transform:translate(6px,4px)}100%{transform:translate(0)}}
+</style>
 </head>
 <body>
 <div id="intro" class="intro">
@@ -102,6 +129,7 @@ const GAMES=[
 {id:"tap",emoji:"👆",title:"10秒連打",desc:"10秒で何回押せる？",html:()=>`<h2>👆 10秒連打</h2><div id="tapCount" class="big">0</div><button id="tapBtn">連打！！</button>`},
 {id:"rpg",emoji:"🧙",title:"RPGキャラメーカー",desc:"名前を入れて冒険者生成。",html:()=>`<h2>🧙 RPGキャラメーカー</h2><input id="rpgName" placeholder="名前"><button id="rpgBtn">生成</button><div id="rpgResult"></div>`},
 {id:"power",emoji:"💪",title:"戦闘力診断",desc:"お前の戦闘力を適当に測る。",html:()=>`<h2>💪 戦闘力診断</h2><p>直感で選べ。</p><div id="powerQ"><button class="choice" data-v="1">冷静に行く</button><button class="choice" data-v="3">勢いで行く</button><button class="choice" data-v="2">普通に行く</button></div><div id="powerResult"></div>`}
+{id:"slot",emoji:"🎰",title:"虹色スロット",desc:"キラキラ虹色の運試し。時間を無駄にしよう！"},
 ];
 let diceCountLocal=0,diceLocked=false,idleTimer;
 function addSecret(){state.secrets++;syncStats();saveState()}
@@ -140,6 +168,7 @@ $("closeModal").onclick=closeModal;$("modal").addEventListener("click",e=>{if(e.
 function playGame(g){
  state.plays++;saveState();syncStats();openModal(g.html());
  const id=g.id;
+{id:"slot",emoji:"🎰",title:"虹色スロット",desc:"キラキラ虹色の運試し。時間を無駄にしよう！"},
  if(id==="ten"){let running=false,start=0;const btn=$("timerBtn");btn.onclick=()=>{if(!running){running=true;start=performance.now();btn.textContent="今や！";const tick=()=>{if(running){$("timer").textContent=((performance.now()-start)/1000).toFixed(2);requestAnimationFrame(tick)}};tick()}else{running=false;const sec=(performance.now()-start)/1000,err=Math.abs(sec-10);$("timer").textContent=sec.toFixed(2);$("timerResult").innerHTML=`<p>${err<.05?"🎯 神！！":err<.2?"🔥 かなり近い！":"😂 時間感覚どこ行った？"}<br>誤差 ${err.toFixed(2)}秒</p>`;btn.textContent="もう一回"}}}
  if(id==="gacha")$("gachaBtn").onclick=()=>{$("gachaResult").textContent=["🌈 UR","💎 SSR","🔥 SR","⭐ R","🥔 N"][Math.floor(Math.random()*5)]}
  if(id==="reaction"){let armed=false,waiting=false,start=0;$("reactionBtn").onclick=()=>{if(armed){const ms=performance.now()-start;armed=false;$("reactionBox").textContent="止まった！";$("reactionResult").innerHTML=`<p>反応速度：<b>${Math.round(ms)}ms</b></p>`;return}if(waiting)return;waiting=true;$("reactionBox").textContent="待て……";setTimeout(()=>{waiting=false;armed=true;start=performance.now();$("reactionBox").textContent="今や！！！";$("reactionBox").style.background="#fff";$("reactionBox").style.color="#111"},700+Math.random()*2200)}}
@@ -169,6 +198,120 @@ function introSequence(){
 }
 b=$("startBtn");b.onclick=()=>{$("intro").classList.add("hide");setTimeout(()=>$("intro").remove(),700)};introSequence();
 
+</script>
+
+<script id="golden-seven-v2-script">
+(function(){
+  function goldSevens(){
+    document.querySelectorAll(".slot-reel").forEach(function(reel){
+      const text=reel.textContent.trim();
+      if(text==="7" || text==="7️⃣"){
+        if(!reel.querySelector(".gold-seven")){
+          reel.innerHTML='<span class="gold-seven">'+text+'</span>';
+        }
+      }
+    });
+  }
+  const observer=new MutationObserver(goldSevens);
+  observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true});
+  document.addEventListener("DOMContentLoaded",goldSevens);
+})();
+</script>
+
+<script id="safe-improvements-v2-script">
+(function(){
+  function byId(x){return document.getElementById(x)}
+  function modal(h){if(typeof openModal==="function")openModal(h)}
+
+  // 10秒ピッタリ：6秒以降は表示を隠し、停止後に実測値を出す
+  window.startTenExactV2=function(){
+    modal(`<div style="text-align:center"><h2>⏱️ 10秒ピッタリ</h2><p>10.00秒を狙え！</p>
+      <div id="tenExactTime" style="font-size:56px;font-weight:1000">0.00</div>
+      <button id="tenExactStart" style="padding:15px 28px;font-size:22px;font-weight:1000;border-radius:15px">START</button>
+      <button id="tenExactStop" style="display:none;padding:15px 28px;font-size:22px;font-weight:1000;border-radius:15px">STOP</button>
+      <div id="tenExactResult" style="margin-top:20px;font-size:26px;font-weight:1000"></div></div>`);
+    let st=0,timer=null,running=false;
+    byId("tenExactStart").onclick=function(){
+      if(running)return; running=true;st=performance.now();
+      this.style.display="none";byId("tenExactStop").style.display="inline-block";
+      timer=setInterval(function(){const t=(performance.now()-st)/1000;byId("tenExactTime").textContent=t<6?t.toFixed(2):"？？.？？"},10)
+    };
+    byId("tenExactStop").onclick=function(){
+      if(!running)return;running=false;clearInterval(timer);
+      const t=(performance.now()-st)/1000;
+      byId("tenExactTime").textContent="STOP!";
+      byId("tenExactResult").innerHTML=`結果：<b>${t.toFixed(2)}秒</b><br>${Math.abs(t-10)<.05?"🎯 ほぼ完璧！！":Math.abs(t-10)<.2?"惜しい！！":"もう一回挑戦する？"}`;
+      this.disabled=true;
+    }
+  };
+
+  // 10秒連打：巨大な丸ボタン。10秒経過後に結果。
+  window.startTapV2=function(){
+    modal(`<div style="text-align:center"><h2>🔥 10秒連打</h2><p>10秒間で何回押せる！？</p>
+      <div id="tapV2Count" style="font-size:76px;font-weight:1000">0</div>
+      <div id="tapV2Time">STARTを押して開始</div>
+      <button id="tapV2Button" class="big-tap-button-v2" disabled>TAP!!</button>
+      <button id="tapV2Start" style="padding:13px 25px;font-size:20px;font-weight:1000;border-radius:15px">START</button>
+      <div id="tapV2Result" style="font-size:25px;font-weight:1000;margin-top:12px"></div></div>`);
+    let n=0,active=false,st=0,timer=null;
+    byId("tapV2Start").onclick=function(){
+      n=0;active=true;st=performance.now();byId("tapV2Count").textContent="0";
+      byId("tapV2Button").disabled=false;this.disabled=true;
+      timer=setInterval(function(){
+        const left=10-(performance.now()-st)/1000;
+        byId("tapV2Time").textContent=left>0?left.toFixed(1)+"秒":"終了！";
+        if(left<=0){
+          clearInterval(timer);active=false;byId("tapV2Button").disabled=true;
+          byId("tapV2Result").textContent=`結果：${n}回！`;
+          byId("tapV2Start").disabled=false;byId("tapV2Start").textContent="もう一回";
+        }
+      },50)
+    };
+    byId("tapV2Button").onclick=function(){if(active){n++;byId("tapV2Count").textContent=n}}
+  };
+
+  // 色を増やした反射神経ゲーム
+  window.startReactionV2=function(){
+    const colors=[["#ff1744","赤"],["#2979ff","青"],["#00c853","緑"],["#ffd600","黄"],["#aa00ff","紫"],["#ff6d00","オレンジ"],["#f50057","ピンク"],["#00b8d4","水色"],["#6d4c41","茶"],["#ffffff","白"]];
+    modal(`<div style="text-align:center"><h2>⚡ 反射神経</h2><p>色が出たらすぐタップ！</p><div id="reactionV2Box" class="reaction-color-v2">準備</div><button id="reactionV2Start" style="padding:14px 26px;font-size:21px;font-weight:1000;border-radius:15px">START</button><div id="reactionV2Result" style="font-size:24px;font-weight:1000;margin-top:14px"></div></div>`);
+    let ready=false,st=0,target=null;
+    byId("reactionV2Start").onclick=function(){
+      this.disabled=true;byId("reactionV2Result").textContent="待て……";
+      setTimeout(function(){target=colors[Math.floor(Math.random()*colors.length)];const b=byId("reactionV2Box");b.style.background=target[0];b.textContent=target[1];st=performance.now();ready=true},500+Math.random()*1800)
+    };
+    byId("reactionV2Box").onclick=function(){
+      if(!ready)return;ready=false;const ms=performance.now()-st;
+      byId("reactionV2Result").innerHTML=`反応速度：<b>${ms.toFixed(0)}ms</b><br>${ms<250?"速すぎ！！🔥":ms<400?"なかなか！":"まだまだ！"}`;
+      byId("reactionV2Start").disabled=false;byId("reactionV2Start").textContent="もう一回"
+    }
+  };
+
+  // 「絶対に押すな」は元の前振りを触らず、元ゲームの最後のボタンにだけジャンプスケアをフック。
+  function hookNever(){
+    const text=(document.body.innerText||"");
+    if(!text.includes("もう好きにせぇ"))return false;
+    const buttons=[...document.querySelectorAll("button")].filter(b=>/押|好き|せぇ/.test(b.textContent||""));
+    const btn=buttons[buttons.length-1]; if(!btn||btn.dataset.scareHook)return false;
+    btn.dataset.scareHook="1";
+    btn.addEventListener("click",function(){
+      setTimeout(function(){
+        const o=document.createElement("div");o.className="jumpscare-v2";
+        o.innerHTML='<div class="scare-face">👁️</div>';document.body.appendChild(o);
+        try{navigator.vibrate&&navigator.vibrate([80,40,140])}catch(e){}
+        setTimeout(()=>o.remove(),900);
+      },30)
+    },true);
+    return true
+  }
+  const obs=new MutationObserver(hookNever);obs.observe(document.body,{subtree:true,childList:true,characterData:true});
+  document.addEventListener("DOMContentLoaded",hookNever);
+
+  // Optional title-based hooks only if a matching card is clicked; original playGame remains untouched.
+  document.addEventListener("click",function(e){
+    const card=e.target.closest&&e.target.closest("[data-game-id]");
+    if(!card)return;
+  });
+})();
 </script>
 </body>
 </html>
